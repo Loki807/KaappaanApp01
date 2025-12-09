@@ -5,12 +5,12 @@ workflows:
     environment:
       node: 18
       groups:
-        - expo   # This loads EXPO_TOKEN from Codemagic Environment Variable Group
+        - expo   # <-- THIS LINE IS VERY IMPORTANT
 
     scripts:
       - name: Install dependencies
         script: |
-          npm install -g expo@latest eas-cli
+          npm install -g expo-cli eas-cli
           npm install
 
       - name: Build APK
@@ -21,7 +21,7 @@ workflows:
         script: |
           apk_path=$(find . -name "*.apk" | head -n 1)
           echo "APK PATH: $apk_path"
-          cp "$apk_path" "$CM_ARTIFACTS"
+          cp $apk_path $CM_ARTIFACTS
 
     artifacts:
       - "*.apk"
@@ -29,4 +29,4 @@ workflows:
     publishing:
       email:
         recipients:
-          - santhanloki28@gmail.com
+          - kaappaanut@gmail.com
