@@ -1,10 +1,11 @@
 workflows:
   expo_apk:
     name: Build Expo Android APK
+
     environment:
       node: 18
-      vars:
-        EXPO_TOKEN: $EXPO_TOKEN
+      groups:
+        - expo   # This loads EXPO_TOKEN from Codemagic Environment Variable Group
 
     scripts:
       - name: Install dependencies
@@ -20,7 +21,7 @@ workflows:
         script: |
           apk_path=$(find . -name "*.apk" | head -n 1)
           echo "APK PATH: $apk_path"
-          cp $apk_path $CM_ARTIFACTS
+          cp "$apk_path" "$CM_ARTIFACTS"
 
     artifacts:
       - "*.apk"
