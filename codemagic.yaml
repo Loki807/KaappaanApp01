@@ -1,16 +1,16 @@
 workflows:
   expo_apk:
-    name: Build Expo Android APK
+    name: Build Expo APK
 
     environment:
       node: 18
       groups:
-        - expo   # <-- THIS LINE IS VERY IMPORTANT
+        - expo   # <-- very important (your EXPO_TOKEN group)
 
     scripts:
       - name: Install dependencies
         script: |
-          npm install -g expo-cli eas-cli
+          npm install -g eas-cli
           npm install
 
       - name: Build APK
@@ -25,8 +25,3 @@ workflows:
 
     artifacts:
       - "*.apk"
-
-    publishing:
-      email:
-        recipients:
-          - kaappaanut@gmail.com
