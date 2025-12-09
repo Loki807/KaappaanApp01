@@ -1,0 +1,31 @@
+workflows:
+  expo_apk:
+    name: Build Expo Android APK
+    environment:
+      node: 18
+      vars:
+        EXPO_TOKEN: $EXPO_TOKEN
+
+    scripts:
+      - name: Install dependencies
+        script: |
+          npm install -g expo@latest eas-cli
+          npm install
+
+      - name: Build APK
+        script: |
+          eas build --platform android --profile preview --non-interactive
+
+      - name: Find APK
+        script: |
+          apk_path=$(find . -name "*.apk" | head -n 1)
+          echo "APK PATH: $apk_path"
+          cp $apk_path $CM_ARTIFACTS
+
+    artifacts:
+      - "*.apk"
+
+    publishing:
+      email:
+        recipients:
+          - santhanloki28@gmail.com
