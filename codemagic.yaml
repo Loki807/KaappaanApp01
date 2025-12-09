@@ -5,7 +5,7 @@ workflows:
     environment:
       node: 18
       groups:
-        - expo   # <-- very important (your EXPO_TOKEN group)
+        - expo   # EXPO_TOKEN group
 
     scripts:
       - name: Install dependencies
@@ -21,7 +21,7 @@ workflows:
         script: |
           apk_path=$(find . -name "*.apk" | head -n 1)
           echo "APK PATH: $apk_path"
-          cp $apk_path $CM_ARTIFACTS
+          cp "$apk_path" "$CM_ARTIFACTS"
 
     artifacts:
       - "*.apk"
